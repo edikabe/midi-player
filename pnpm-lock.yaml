@@ -3,8 +3,6 @@ lockfileVersion: 5.4
 specifiers:
   '@antfu/eslint-config': ^0.34.1
   '@iconify-json/carbon': ^1.1.13
-  '@iconify-json/vscode-icons': ^1.1.22
-  '@iconify/json': ^2.2.26
   '@types/node': ^18.11.18
   '@unocss/reset': ^0.48.4
   '@vitejs/plugin-basic-ssl': ^1.0.1
@@ -16,7 +14,6 @@ specifiers:
   jsdom: ^21.0.0
   pinia: ^2.0.32
   pnpm: ^7.25.1
-  primevue: ^3
   taze: ^0.8.5
   ts-event-bus: ^4.1.1
   typescript: ^4.9.4
@@ -28,7 +25,6 @@ specifiers:
   vite-plugin-pages: ^0.28.0
   vitest: ^0.27.2
   vue: ^3.2.45
-  vue-multiselect: ^2.1.7
   vue-router: ^4.1.6
   vue-tsc: ^1.0.24
   webmidi: ^3.1.4
@@ -36,18 +32,14 @@ specifiers:
 dependencies:
   '@vueuse/core': 9.13.0_vue@3.2.45
   pinia: 2.0.32_prq2uz4lho2pwp6irk4cfkrxwu
-  primevue: 3.23.0_vue@3.2.45
   ts-event-bus: 4.1.1
   vue: 3.2.45
-  vue-multiselect: 2.1.7
   vue-router: 4.1.6_vue@3.2.45
   webmidi: 3.1.4
 
 devDependencies:
   '@antfu/eslint-config': 0.34.1_7uibuqfxkfaozanbtbziikiqje
   '@iconify-json/carbon': 1.1.13
-  '@iconify-json/vscode-icons': 1.1.22
-  '@iconify/json': 2.2.26
   '@types/node': 18.11.18
   '@unocss/reset': 0.48.4
   '@vitejs/plugin-basic-ssl': 1.0.1_vite@4.0.4
@@ -512,19 +504,6 @@ packages:
     resolution: {integrity: sha512-qPR7n3JkCqIrvjxnyUPIejhn0wrZJsLmija59U/zwFm5SMOITCfLx+Jp6VecnL0Sm76zRE5Kv54VzolQljB97A==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: true
-
-  /@iconify-json/vscode-icons/1.1.22:
-    resolution: {integrity: sha512-lO0Sl2xApg/R7PlZJOiRbwuOQFXPRVbM8c+RHOMxWEUF0Hd/UiHBemYjdUDW5pr9QNmvv183rwJiBFHBvIeZ5A==}
-    dependencies:
-      '@iconify/types': 2.0.0
-    dev: true
-
-  /@iconify/json/2.2.26:
-    resolution: {integrity: sha512-ATRMh64npEpb/ZGDHwNugZfXxy8m7MdH3MZHJPOBO39oEnNZg93jhglqGZnbDjPNffTFET+JUlImF3CXF2QE3w==}
-    dependencies:
-      '@iconify/types': 2.0.0
-      pathe: 1.0.0
     dev: true
 
   /@iconify/types/2.0.0:
@@ -4250,15 +4229,6 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /primevue/3.23.0_vue@3.2.45:
-    resolution: {integrity: sha512-WyJwvVRJbuCPAId3qDwQVPXgOli4gc9yxdZZyY/3Ml0/asHHH3LR7+MMvjIHXg/AN+XX5SBVPPJkObxP8cJuaw==}
-    peerDependencies:
-      primeicons: ^5.0.0 || ^6.0.0
-      vue: ^3.0.0
-    dependencies:
-      vue: 3.2.45
-    dev: false
-
   /proc-log/2.0.1:
     resolution: {integrity: sha512-Kcmo2FhfDTXdcbfDH76N7uBYHINxc/8GW7UAVuVP9I+Va3uHSerrnKV6dLooga/gh7GlgzuCCr/eoldnL1muGw==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
@@ -5282,11 +5252,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /vue-multiselect/2.1.7:
-    resolution: {integrity: sha512-KIegcN+Ntwg3cbkY/jhw2s/+XJUM0Lpi/LcKFYCS8PrZHcWBl2iKCVze7ZCnRj3w8H7/lUJ9v7rj9KQiNxApBw==}
-    engines: {node: '>= 4.0.0', npm: '>= 3.0.0'}
-    dev: false
 
   /vue-router/4.1.6_vue@3.2.45:
     resolution: {integrity: sha512-DYWYwsG6xNPmLq/FmZn8Ip+qrhFEzA14EI12MsMgVxvHFDYvlr4NXpVF5hrRH1wVcDP8fGi5F4rxuJSl8/r+EQ==}
