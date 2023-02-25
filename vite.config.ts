@@ -13,7 +13,7 @@ import basicSsl from '@vitejs/plugin-basic-ssl'
 
 export default defineConfig({
   server: {
-    https: true
+    https: true,
   },
   resolve: {
     alias: {
@@ -52,13 +52,13 @@ export default defineConfig({
     Components({
       dts: true,
       resolvers: [
-        /*PrimeVueResolver({
+        /* PrimeVueResolver({
           importIcons: false,
           importTheme: "lara-light-blue",
           importStyle: false
-          
-        })*/
-      ]
+
+        }) */
+      ],
     }),
 
     // https://github.com/antfu/unocss
