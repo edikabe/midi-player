@@ -7,7 +7,7 @@
     <a
       icon-btn i-carbon-logo-github
       rel="noreferrer"
-      href="https://github.com/edikabe/midi-player"
+      href="https://github.com/edikabe/my-little-synth"
       target="_blank"
       title="GitHub"
     />
