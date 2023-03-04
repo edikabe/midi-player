@@ -22,7 +22,7 @@ onMounted(async () => {
             <span
               v-for="note in midiStore.currentNotesPressedArray"
               :key="note"
-              class="font-bold dark:text-black dark:bg-white text-black bg-white mr-1 p-1 rounded-1"
+              class="font-bold dark:text-black dark:bg-white text-white bg-black mr-1 p-1 rounded-1"
             >{{ note }}</span>
           </template>
           <span v-else>- play a note -</span>
