@@ -14,8 +14,10 @@ onMounted(async () => {
       My Little Synth (beta)
     </h1>
     <div class="mt-3">
-      <div v-if=" midiStore.currentInputDevice" class="mt-3">
-        <div>Current Midi input device: {{ midiStore.currentInputDevice.name }}</div>
+      <div class="mt-3">
+        <div v-if=" midiStore.currentInputDevice">
+          Current Midi input device: {{ midiStore.currentInputDevice.name }}
+        </div>
         <div>
           Current notes played:
           <template v-if="midiStore.currentNotesPressedArray.length">

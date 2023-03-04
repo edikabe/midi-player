@@ -44,14 +44,20 @@ const classObject = computed(() => ({
 
 <style scoped lang="postcss">
 .key {
-  @apply w-1/12 rounded-b-sm transition-colors duration-100
+  margin-right: 2px;
+  @apply w-1/12 rounded-b-md transition-colors duration-100 border-l-1 border-r-1 border-b-1;
 }
-.black {
-  @apply bg-black h-full border-white border-1 text-white;
+
+.key:last-child {
+  margin-right: 0;
 }
 
 .white {
-  @apply bg-white h-full border-black border-1 text-black;
+  @apply bg-white h-full border-black text-black;
+}
+
+.black {
+  @apply bg-black h-full border-black text-white;
 }
 
 .pressed {
