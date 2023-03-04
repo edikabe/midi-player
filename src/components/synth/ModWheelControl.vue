@@ -13,19 +13,11 @@ function handleModwheelValueChange() {
 
 <template>
   <div>
-    <div>
-      <input v-model="slider" type="range" orient="vertical" min="0" max="100" @input.prevent="handleModwheelValueChange">
+    <div class="-rotate-90 origin-center mt-20">
+      <input v-model="slider" class="stylish" type="range" min="0" max="100" @input.prevent="handleModwheelValueChange">
     </div>
-    <h1>ModWheel</h1>
-    {{ Math.floor(midiStore.modwheel * 100) }}%
+    <h1 class="mt-20">
+      ModWheel <br> {{ Math.floor(midiStore.modwheel * 100) }}%
+    </h1>
   </div>
 </template>
-
-<style scoped lang="css">
-input[type=range][orient=vertical] {
-  -webkit-appearance: slider-vertical;
-  width: 16px;
-  height: 175px;
-  padding: 0 5px;
-}
-</style>

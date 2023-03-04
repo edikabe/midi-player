@@ -27,16 +27,14 @@ const classObject = computed(() => ({
   black: props.black,
   white: !props.black,
 }))
-function keydown() {
-  midiStore.eventBus.notePressed(props.note)
-}
 </script>
 
 <template>
   <button
     class="key flex justify-center content-end" :class="classObject"
-    @mousedown.prevent="() => keydown()"
-    @mouseup="() => midiStore.eventBus.noteReleased(props.note)"
+    @mousedown.prevent="midiStore.eventBus.notePressed(props.note)"
+    @mouseup="midiStore.eventBus.noteReleased(props.note)"
+    @mouseleave="midiStore.eventBus.noteReleased(props.note)"
   >
     <div class="bottom-0">
       {{ props.note }}

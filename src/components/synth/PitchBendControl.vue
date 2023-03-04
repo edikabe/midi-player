@@ -12,19 +12,11 @@ function handlePitchbendValueChange() {
 
 <template>
   <div>
-    <div>
-      <input v-model="slider" type="range" orient="vertical" min="0" max="127" @input.prevent="handlePitchbendValueChange" @mouseup="midiStore.setPitchbendValue(64)">
+    <div class="-rotate-90 origin-center mt-20">
+      <input v-model="slider" class="stylish" type="range" min="0" max="127" @input.prevent="handlePitchbendValueChange" @mouseup="midiStore.setPitchbendValue(64)">
     </div>
-    <h1>PitchBend</h1>
-    {{ pitchbend }}
+    <h1 class="mt-20">
+      PitchBend <br> {{ pitchbend }}
+    </h1>
   </div>
 </template>
-
-<style scoped lang="css">
-input[type=range][orient=vertical] {
-  -webkit-appearance: slider-vertical;
-  width: 16px;
-  height: 175px;
-  padding: 0 5px;
-}
-</style>
