@@ -24,7 +24,7 @@ export const useMidiStore = defineStore('midi', () => {
       allInputMidiDevices.value = WebMidi.inputs
 
       const userSettingsStore = useUserSettingsStore()
-      if (userSettingsStore.currentMidiInputDeviceId)
+      if (userSettingsStore.currentMidiInputDeviceId && userSettingsStore.currentMidiInputDeviceId.length)
         selectCurrentInputDevice(userSettingsStore.currentMidiInputDeviceId)
 
       isMidiEnabled.value = true
