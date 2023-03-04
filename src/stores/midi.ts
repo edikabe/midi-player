@@ -13,32 +13,29 @@ export const useMidiStore = defineStore('midi', () => {
   })
 
   const isMidiEnabled = ref(false)
-  const allInputMidiDevices = ref<Input[]>([])
+  const allInputMidiDevices = ref<Input[]>()
   const currentInputDevice = ref<Input>()
 
-  const pitchbend = ref<number>()
+  const pitchbend = ref<number>(64)
 
   async function enableMidi() {
     try {
       await WebMidi.enable()
       allInputMidiDevices.value = WebMidi.inputs
-      isMidiEnabled.value = true
 
       const userSettingsStore = useUserSettingsStore()
-      if (userSettingsStore.currentMidiInputDevice) {
-        const devFoundInList = allInputMidiDevices.value.find(dev => dev.name === userSettingsStore.currentMidiInputDevice)
-        if (devFoundInList)
-          selectCurrentInputDevice(devFoundInList as Input)
-      }
+      if (userSettingsStore.currentMidiInputDeviceId)
+        selectCurrentInputDevice(userSettingsStore.currentMidiInputDeviceId)
+
+      isMidiEnabled.value = true
     }
     catch {
       isMidiEnabled.value = false
     }
   }
 
-  function selectCurrentInputDevice(input: Input) {
-    // eslint-disable-next-line no-console
-    console.log(input)
+  function selectCurrentInputDevice(inputDeviceId: string) {
+    const input = WebMidi.getInputById(inputDeviceId)
     if (currentInputDevice.value)
       currentInputDevice.value.removeListener()
 
