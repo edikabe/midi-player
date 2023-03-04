@@ -7,11 +7,15 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    copy: typeof import('./src/components/PitchbendControl copy.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
-    Key: typeof import('./src/components/Key.vue')['default']
-    Keyboard: typeof import('./src/components/Keyboard.vue')['default']
-    MyLittleSynth: typeof import('./src/components/MyLittleSynth.vue')['default']
+    Key: typeof import('./src/components/synth/Key.vue')['default']
+    Keyboard: typeof import('./src/components/synth/Keyboard.vue')['default']
+    ModwheelControl: typeof import('./src/components/ModwheelControl.vue')['default']
+    ModWheelControl: typeof import('./src/components/synth/ModWheelControl.vue')['default']
+    MyLittleSynth: typeof import('./src/components/synth/MyLittleSynth.vue')['default']
     PitchbendControl: typeof import('./src/components/PitchbendControl.vue')['default']
+    PitchBendControl: typeof import('./src/components/synth/PitchBendControl.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UserSettings: typeof import('./src/components/UserSettings.vue')['default']

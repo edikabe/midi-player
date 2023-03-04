@@ -46,7 +46,7 @@ function keydown() {
 
 <style scoped lang="postcss">
 .key {
-  @apply w-1/12 rounded-b-sm transition-colors duration-75
+  @apply w-1/12 rounded-b-sm transition-colors duration-100
 }
 .black {
   @apply bg-black h-full border-white border-1 text-white;

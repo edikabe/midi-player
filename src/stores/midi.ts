@@ -17,6 +17,7 @@ export const useMidiStore = defineStore('midi', () => {
   const currentInputDevice = ref<Input>()
 
   const pitchbend = ref<number>(64)
+  const modwheel = useLocalStorage('mls-modwheel-value', 0.1) // by default modwheel will be set at 10%
 
   async function enableMidi() {
     try {
@@ -38,7 +39,7 @@ export const useMidiStore = defineStore('midi', () => {
   function selectCurrentInputDevice(inputDeviceId: string) {
     const input = WebMidi.getInputById(inputDeviceId)
     if (currentInputDevice.value)
-      currentInputDevice.value.removeListener()
+      currentInputDevice.value.removeListener() // removes all listeners
 
     // set current input Midi device
     currentInputDevice.value = input
@@ -46,28 +47,38 @@ export const useMidiStore = defineStore('midi', () => {
 
     // add listeners and bind them to store models
     currentInputDevice.value.addListener('pitchbend', (e) => {
-      // console.log(e.message.data)
       pitchbend.value = e.message.data[2]
     })
-
+    currentInputDevice.value.addListener('controlchange', (e) => {
+      if (e.type === 'controlchange' && e.subtype && e.subtype === 'modulationwheelcoarse')
+        modwheel.value = (typeof e.value === 'number') ? e.value : 0
+    })
     currentInputDevice.value.addListener('noteon', (e) => {
-      // console.log(e.note)
       eventBus.notePressed(e.note.identifier)
     })
-
     currentInputDevice.value.addListener('noteoff', (e) => {
-      // console.log(e.note)
       eventBus.noteReleased(e.note.identifier)
     })
+  }
+
+  function setPitchbendValue(val: number) {
+    pitchbend.value = val
+  }
+
+  function setModwheelValue(val: number) {
+    modwheel.value = val
   }
 
   return {
     allInputMidiDevices,
     currentInputDevice,
     selectCurrentInputDevice,
+    setPitchbendValue,
+    setModwheelValue,
     enableMidi,
     eventBus,
     pitchbend,
+    modwheel,
     isMidiEnabled,
   }
 })
