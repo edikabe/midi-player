@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { Input } from 'webmidi'
 import { WebMidi } from 'webmidi'
 import { createEventBus, slot } from 'ts-event-bus'
@@ -10,6 +10,17 @@ export const useMidiStore = defineStore('midi', () => {
       notePressed: slot<string>(),
       noteReleased: slot<string>(),
     },
+  })
+
+  const currentNotesPressed = ref<Set<string>>(new Set())
+  const currentNotesPressedArray = computed(() => Array.from(currentNotesPressed.value))
+
+  eventBus.notePressed.on((note) => {
+    currentNotesPressed.value.add(note)
+  })
+
+  eventBus.noteReleased.on((note) => {
+    currentNotesPressed.value.delete(note)
   })
 
   const isMidiEnabled = ref(false)
@@ -80,5 +91,9 @@ export const useMidiStore = defineStore('midi', () => {
     pitchbend,
     modwheel,
     isMidiEnabled,
+    currentNotesPressedArray,
   }
 })
+
+if (import.meta.hot)
+  import.meta.hot.accept(acceptHMRUpdate(useMidiStore, import.meta.hot))
