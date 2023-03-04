@@ -10,7 +10,7 @@ watch(selectedDeviceId, deviceId => midiStore.selectCurrentInputDevice(deviceId)
 <template>
   <div class="absolute top-0 left-0 w-full h-screen z-40 dark:bg-gray-900 bg-green-600">
     <div class="container mx-auto">
-      <h1 class="text-3xl">
+      <h1 class="text-3xl mt-6">
         settings
       </h1>
       <div v-if="midiStore.isMidiEnabled" class="mt-3">

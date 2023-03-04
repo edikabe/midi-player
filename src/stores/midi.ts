@@ -29,7 +29,8 @@ export const useMidiStore = defineStore('midi', () => {
 
       isMidiEnabled.value = true
     }
-    catch {
+    catch (e: any) {
+      console.error(e)
       isMidiEnabled.value = false
     }
   }
