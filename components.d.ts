@@ -10,6 +10,8 @@ declare module '@vue/runtime-core' {
     Footer: typeof import('./src/components/Footer.vue')['default']
     Key: typeof import('./src/components/Key.vue')['default']
     Keyboard: typeof import('./src/components/Keyboard.vue')['default']
+    MyLittleSynth: typeof import('./src/components/MyLittleSynth.vue')['default']
+    PitchbendControl: typeof import('./src/components/PitchbendControl.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UserSettings: typeof import('./src/components/UserSettings.vue')['default']

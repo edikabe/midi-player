@@ -1,9 +1,3 @@
-<script setup lang="ts">
-import { useKeyBoardLayoutStore } from '~/stores/keyboard-layout'
-
-const keyboardLayoutStore = useKeyBoardLayoutStore()
-</script>
-
 <template>
   <div class="flex h-xl w-full border-2 border-white rounded-md bg-gray-100">
     <Key note="C3" />

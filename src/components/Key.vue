@@ -13,19 +13,13 @@ const isPressed = ref(false)
 const midiStore = useMidiStore()
 
 midiStore.eventBus.notePressed.on((note) => {
-  if (note === props.note) {
-    // eslint-disable-next-line no-console
-    console.log(`note ${note} pressed`)
+  if (note === props.note)
     isPressed.value = true
-  }
 })
 
 midiStore.eventBus.noteReleased.on((note) => {
-  if (note === props.note) {
-    // eslint-disable-next-line no-console
-    console.log(`note ${note} released`)
+  if (note === props.note)
     isPressed.value = false
-  }
 })
 
 const classObject = computed(() => ({
@@ -40,11 +34,13 @@ function keydown() {
 
 <template>
   <button
-    class="key" :class="classObject"
+    class="key flex justify-center content-end" :class="classObject"
     @mousedown.prevent="() => keydown()"
     @mouseup="() => midiStore.eventBus.noteReleased(props.note)"
   >
-    {{ props.note }}
+    <div class="bottom-0">
+      {{ props.note }}
+    </div>
   </button>
 </template>
 
@@ -53,11 +49,11 @@ function keydown() {
   @apply w-1/12 rounded-b-sm transition-colors duration-75
 }
 .black {
-  @apply bg-black h-2/3 border-white border-1;
+  @apply bg-black h-full border-white border-1 text-white;
 }
 
 .white {
-  @apply bg-white h-full border-black border-1;
+  @apply bg-white h-full border-black border-1 text-black;
 }
 
 .pressed {

@@ -22,10 +22,14 @@ onMounted(async () => {
       <div v-if=" midiStore.currentInputDevice" class="mt-3">
         <div>Current Midi input device: {{ midiStore.currentInputDevice.name }}</div>
         <div>Last note played: {{ lastNotePlayed || '- play a note -' }}</div>
+        <!--
         <div>Pitchbend val: {{ midiStore.pitchbend || '0' }}</div>
+        -->
       </div>
     </div>
 
-    <Keyboard />
+    <div class="mt-6">
+      <MyLittleSynth />
+    </div>
   </div>
 </template>
