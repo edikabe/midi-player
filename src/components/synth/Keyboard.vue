@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-sm w-full border-2 dark:border-white border-black rounded-md bg-gray-100 pl-0.5 pr-0.5 pb-0.5 box-border bg-gray-400">
+  <div class="flex h-sm w-full border-2 dark:border-white border-black rounded-md bg-gray-100 pl-0.5 pr-0.5 pb-0.5 box-border bg-gray-300">
     <Key note="C3" />
     <Key note="C#3" :black="true" />
     <Key note="D3" />

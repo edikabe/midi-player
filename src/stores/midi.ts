@@ -49,6 +49,11 @@ export const useMidiStore = defineStore('midi', () => {
 
   function selectCurrentInputDevice(inputDeviceId: string) {
     const input = WebMidi.getInputById(inputDeviceId)
+    if (!input) { // dont trust WebMidi.getInputById() which can actually return undefined...
+      // eslint-disable-next-line no-console
+      console.log(`couldn't find midi input device with id: ${inputDeviceId}, skipping...`)
+      return
+    }
     if (currentInputDevice.value)
       currentInputDevice.value.removeListener() // removes all listeners
 

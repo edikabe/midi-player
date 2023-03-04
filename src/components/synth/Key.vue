@@ -31,7 +31,7 @@ const classObject = computed(() => ({
 
 <template>
   <button
-    class="key flex justify-center content-end" :class="classObject"
+    class="key w-full rounded-b-md transition-colors duration-100 border-l-1 border-r-1 border-b-1" :class="classObject"
     @mousedown.prevent="midiStore.eventBus.notePressed(props.note)"
     @mouseup="midiStore.eventBus.noteReleased(props.note)"
     @mouseleave="midiStore.eventBus.noteReleased(props.note)"
