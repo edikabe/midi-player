@@ -3,6 +3,7 @@ import type { Input } from 'webmidi'
 import { WebMidi } from 'webmidi'
 import { createEventBus, slot } from 'ts-event-bus'
 import { useUserSettingsStore } from './user-settings'
+import NOTE_FREQUENCIES from '~/models/notes-frequencies'
 
 export const useMidiStore = defineStore('midi', () => {
   const eventBus = createEventBus({
@@ -12,15 +13,54 @@ export const useMidiStore = defineStore('midi', () => {
     },
   })
 
+  interface NotePlayedContext {
+    oscillator: OscillatorNode
+    audioCtx: AudioContext
+  }
+
+  const audioContextsByNote = ref(new Map<string, NotePlayedContext >())
+
   const currentNotesPressed = ref<Set<string>>(new Set())
   const currentNotesPressedArray = computed(() => Array.from(currentNotesPressed.value))
 
+  function createAudioContext(note: string) {
+    const audioCtx = new (window.AudioContext)()
+
+    const gainNode = new GainNode(audioCtx)
+    gainNode.gain.value = 1
+
+    // create Oscillator node
+    const oscillator = audioCtx.createOscillator()
+
+    oscillator.type = 'sine'
+    oscillator.frequency.setValueAtTime(NOTE_FREQUENCIES[note], audioCtx.currentTime) // value in hertz
+    oscillator.connect(audioCtx.destination)
+    // oscillator.start()
+    audioContextsByNote.value.set(note, { oscillator, audioCtx })
+    return {
+      oscillator, audioCtx,
+    }
+  }
+
+  function stopAndRemoveContext(note: string) {
+    const ctx = audioContextsByNote.value.get(note)
+
+    if (ctx) {
+      if (ctx?.audioCtx.state === 'suspended')
+        ctx.audioCtx.resume()
+      ctx.oscillator.stop()
+      audioContextsByNote.value.delete(note)
+    }
+  }
+
   eventBus.notePressed.on((note) => {
     currentNotesPressed.value.add(note)
+    createAudioContext(note).oscillator.start()
   })
 
   eventBus.noteReleased.on((note) => {
     currentNotesPressed.value.delete(note)
+    stopAndRemoveContext(note)
   })
 
   const isMidiEnabled = ref(false)
