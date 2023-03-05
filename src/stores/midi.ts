@@ -1,74 +1,19 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { Input } from 'webmidi'
 import { WebMidi } from 'webmidi'
-import { createEventBus, slot } from 'ts-event-bus'
+import { useNoteEventsBusStore } from './note-event-bus'
+
 import { useUserSettingsStore } from './user-settings'
-import NOTE_FREQUENCIES from '~/models/notes-frequencies'
 
 export const useMidiStore = defineStore('midi', () => {
-  const eventBus = createEventBus({
-    events: {
-      notePressed: slot<string>(),
-      noteReleased: slot<string>(),
-    },
-  })
-
-  interface NotePlayedContext {
-    oscillator: OscillatorNode
-    audioCtx: AudioContext
-  }
-
-  const audioContextsByNote = ref(new Map<string, NotePlayedContext >())
-
-  const currentNotesPressed = ref<Set<string>>(new Set())
-  const currentNotesPressedArray = computed(() => Array.from(currentNotesPressed.value))
-
-  function createAudioContext(note: string) {
-    const audioCtx = new (window.AudioContext)()
-
-    const gainNode = new GainNode(audioCtx)
-    gainNode.gain.value = 1
-
-    // create Oscillator node
-    const oscillator = audioCtx.createOscillator()
-
-    oscillator.type = 'sine'
-    oscillator.frequency.setValueAtTime(NOTE_FREQUENCIES[note], audioCtx.currentTime) // value in hertz
-    oscillator.connect(audioCtx.destination)
-    // oscillator.start()
-    audioContextsByNote.value.set(note, { oscillator, audioCtx })
-    return {
-      oscillator, audioCtx,
-    }
-  }
-
-  function stopAndRemoveContext(note: string) {
-    const ctx = audioContextsByNote.value.get(note)
-
-    if (ctx) {
-      if (ctx?.audioCtx.state === 'suspended')
-        ctx.audioCtx.resume()
-      ctx.oscillator.stop()
-      audioContextsByNote.value.delete(note)
-    }
-  }
-
-  eventBus.notePressed.on((note) => {
-    currentNotesPressed.value.add(note)
-    createAudioContext(note).oscillator.start()
-  })
-
-  eventBus.noteReleased.on((note) => {
-    currentNotesPressed.value.delete(note)
-    stopAndRemoveContext(note)
-  })
-
   const isMidiEnabled = ref(false)
   const allInputMidiDevices = ref<Input[]>()
   const currentInputDevice = ref<Input>()
 
   const pitchbend = ref<number>(64)
-  const modwheel = useLocalStorage('mls-modwheel-value', 0.1) // by default modwheel will be set at 10%
+  const modwheel = useLocalStorage('mls-modwheel-value', 0) // by default modwheel will be set at 0%
+
+  const { fireNotePressed, fireNoteReleased } = useNoteEventsBusStore().bus
 
   async function enableMidi() {
     try {
@@ -110,10 +55,10 @@ export const useMidiStore = defineStore('midi', () => {
         modwheel.value = (typeof e.value === 'number') ? e.value : 0
     })
     currentInputDevice.value.addListener('noteon', (e) => {
-      eventBus.notePressed(e.note.identifier)
+      fireNotePressed({ note: e.note.identifier })
     })
     currentInputDevice.value.addListener('noteoff', (e) => {
-      eventBus.noteReleased(e.note.identifier)
+      fireNoteReleased({ note: e.note.identifier })
     })
   }
 
@@ -132,11 +77,9 @@ export const useMidiStore = defineStore('midi', () => {
     setPitchbendValue,
     setModwheelValue,
     enableMidi,
-    eventBus,
     pitchbend,
     modwheel,
     isMidiEnabled,
-    currentNotesPressedArray,
   }
 })
 

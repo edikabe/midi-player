@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { useMidiStore } from '~/stores/midi'
+import { useAudioBusStore } from '~/stores/audio-bus'
+import { useNoteEventsBusStore } from '~/stores/note-event-bus'
 
 const midiStore = useMidiStore()
+const audioBusStore = useAudioBusStore()
+const noteEventBusStore = useNoteEventsBusStore()
 
 onMounted(async () => {
   await midiStore.enableMidi()
+  audioBusStore.registerHandlers()
 })
 </script>
 
@@ -20,18 +25,15 @@ onMounted(async () => {
         </div>
         <div>
           Current notes played:
-          <template v-if="midiStore.currentNotesPressedArray.length">
+          <template v-if="noteEventBusStore.currentNotesPressedArray.length">
             <span
-              v-for="note in midiStore.currentNotesPressedArray"
+              v-for="note in noteEventBusStore.currentNotesPressedArray"
               :key="note"
               class="font-bold dark:text-black dark:bg-white text-white bg-black mr-1 p-1 rounded-1"
             >{{ note }}</span>
           </template>
           <span v-else>- play a note -</span>
         </div>
-        <!--
-        <div>Pitchbend val: {{ midiStore.pitchbend || '0' }}</div>
-        -->
       </div>
     </div>
 
